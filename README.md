@@ -40,6 +40,7 @@ SetupShowroom transforms the way people share and discover workspace setups by p
 - **PostgreSQL**: Robust relational database system
 - **Flyway**: Database migration management
 - **JWT & OAuth2**: Secure authentication and authorization
+- **SSE (Server Side Event)**: Notifications
 
 ### Infrastructure & DevOps
 - **Kubernetes**: Container orchestration platform
@@ -114,7 +115,7 @@ SetupShowroom transforms the way people share and discover workspace setups by p
 
 **SetupShowroom** represents the intersection of social networking and workspace inspiration, powered by enterprise-grade technology stack and designed for scalability and community growth.
 
-**Live**: [https//setupshowroom.com]
+**Live**: [setupshowroom.com](https//setupshowroom.com)
 
 ## Images
 
