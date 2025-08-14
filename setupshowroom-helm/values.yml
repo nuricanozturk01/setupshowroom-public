@@ -1,0 +1,18 @@
+imageTag: "1.0.0"
+
+common:
+  secrets:
+    APP_JWT_SECRET: <BASE_64_ENCODED_SECRET>
+
+setupshowroom:
+  replicaCount: 1
+  ingress:
+    host:
+  image:
+    repository: repo.repsy.io/nuricanozturk/setupshowroom/setupshowroom-backend
+  secrets:
+    APP_FRONTEND_BASE_URL: <BASE_64_ENCODED_SECRET>
+    GOOGLE_CLIENT_ID: <BASE_64_ENCODED_SECRET>
+    GOOGLE_CLIENT_SECRET: <BASE_64_ENCODED_SECRET>
+    SIGHTENGINE_API_USER: <BASE_64_ENCODED_SECRET>
+    SIGHTENGINE_API_SECRET: <BASE_64_ENCODED_SECRET>
