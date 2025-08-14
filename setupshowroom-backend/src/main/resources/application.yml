@@ -1,0 +1,95 @@
+server:
+  port: 8080
+app:
+  base-url: http://localhost:8080
+  jwt:
+    secret: ODcwYmI1YTJjMjQzYzNmYjQ0ODhlMjM2MGZmYWQ1OTMyZWJhZWM3ZmE3Y2ExNjc5OGVlYTJmMTZmN2Y0ODNhOTc1YzM1MzFjYTRmY2ZiODUyZWJiNTYwNmNkMDAxMDRhMzE0N2RlZGMyYjBhOWY0ZjY1YTkyZTMzNGQxMTYzZTcwYzRkNDNlYzNhNjliNTQzYTI1NWFhMGRkYmIwMTc1ZTZiZGQ2Y2RhY2UwNmZhNDI2NzY4NTBjOGEzODhjMzdiZTcwYTA4MDdjNDZiZjE4ZmM3MmE5MzEzMTY2ODAxZTdiNmIwNDI5ZjgzZWQ4YjQxNzM0NTkzNjg3ZDE2ODYxM2UwZjBiOTQyNWU3NGFkMzcyNmJhM2UwMTc4MGU0MWQwYjU2NTIxYTRhOGE4YmY0ZDAzNWQ2ZTRjNWQ5ZmI3ZGRlNjYxMzkyNjdlZjBlODUxZjNmODhjOTVhODFmOGZmNGVhZDA0ODJiMmI2YmIxMTVkMjhiNzY5MzZkMTljMGZhNmI0YmUwYWE4ZjhhYTIyNzU1ZjAyNWQ0ZTUzMzJjMGViZTJjZDA4NjA0NDM2MDQ1MDc4YWQ5NGEwZjkwYzNmMjdjMDlmZmE5OTgzMzEyYjU=
+
+  frontend:
+    base-url: http://localhost:4200
+
+  sightengine:
+    active: false
+    api-user: api-user
+    api-secret: api-secret
+    models: nudity-2.1,recreational_drug,medical,self-harm
+
+  storage:
+    s3:
+      endpoint: http://localhost:9090
+      base-path: setup-showroom
+      trash-path: setup-showroom/trash
+      bucket: setupshowroom
+      access-key: admin
+      secret-key: admin123
+
+spring:
+  cloud:
+    aws:
+      s3:
+        enabled: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/setupshowroom
+    username: admin
+    password: admin123
+
+  jpa:
+    show-sql: false
+    open-in-view: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        globally_quoted_identifiers: true
+
+  servlet:
+    multipart:
+      max-file-size: 5GB
+      max-request-size: 6GB
+
+  flyway:
+    enabled: true
+    schemas: public
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: YOUR_CLIENT_ID
+            client-secret: YOUR_CLIENT_SECRET
+            scope: profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            authorization-grant-type: authorization_code
+            client-name: Google
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
+            user-name-attribute: sub
+  profiles:
+    default: default
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      group:
+        liveness:
+          include: livenessState
+        readiness:
+          include: readinessState
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: WARN

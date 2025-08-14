@@ -1,0 +1,2 @@
+ALTER TABLE setup
+ALTER COLUMN description TYPE VARCHAR(1000);

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="{{svgWidth}}" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="workspace-bg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#064E3B"/>
+      <stop offset="100%" style="stop-color:#065F46"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="{{svgWidth}}" height="200" rx="8" fill="url(#workspace-bg)"/>
+
+  <g>
+    <rect x="0" y="0" width="110" height="200" fill="#064E3B" rx="4"/>
+
+    <g transform="translate(5, 10)">
+      <g font-family="monospace" font-size="10">
+        <path d="M0,0 L100,0 L100,180 L0,180 Z" fill="#065F46"/>
+        <path d="M100,0 L85,15 L85,165 L100,180" fill="#064E3B"/>
+
+        <g>
+          <rect x="10" y="10" width="40" height="50" fill="#064E3B"/>
+          <rect x="10" y="10" width="40" height="50" fill="none" stroke="#34D399" stroke-width="1"/>
+          <line x1="30" y1="10" x2="30" y2="60" stroke="#34D399" stroke-width="1"/>
+          <line x1="10" y1="35" x2="50" y2="35" stroke="#34D399" stroke-width="1"/>
+        </g>
+
+        <g>
+          <rect x="5" y="70" width="75" height="4" fill="#34D399"/>
+          <rect x="10" y="74" width="4" height="36" fill="#34D399"/>
+          <rect x="71" y="74" width="4" height="36" fill="#34D399"/>
+        </g>
+
+        <g>
+          <rect x="15" y="40" width="60" height="25" rx="2" fill="#065F46" stroke="#2DD4BF" stroke-width="1"/>
+          <rect x="17" y="42" width="56" height="21" fill="#064E3B"/>
+
+          <g transform="translate(19, 44)">
+            <rect x="0" y="0" width="25" height="1" fill="#34D399"/>
+            <rect x="0" y="3" width="20" height="1" fill="#34D399"/>
+            <rect x="0" y="6" width="15" height="1" fill="#2DD4BF"/>
+            <rect x="0" y="9" width="22" height="1" fill="#34D399"/>
+            <rect x="0" y="12" width="18" height="1" fill="#2DD4BF"/>
+            <animate attributeName="opacity"
+                     values="1;0.8;1"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+          </g>
+
+          <path d="M40,65 L50,65 L45,70 Z" fill="#34D399"/>
+        </g>
+
+        <g>
+          <rect x="80" y="35" width="20" height="35" rx="2" fill="#065F46" stroke="#2DD4BF" stroke-width="1"/>
+          <rect x="82" y="37" width="16" height="31" fill="#064E3B"/>
+          <g transform="translate(84, 39)">
+            <rect x="0" y="0" width="8" height="1" fill="#2DD4BF"/>
+            <rect x="0" y="3" width="12" height="1" fill="#2DD4BF"/>
+            <rect x="0" y="6" width="10" height="1" fill="#2DD4BF"/>
+          </g>
+        </g>
+
+        <g>
+          <rect x="25" y="80" width="40" height="15" rx="2" fill="#065F46" stroke="#2DD4BF" stroke-width="0.5"/>
+          <g transform="translate(27, 82)">
+            <rect x="0" y="0" width="36" height="2" fill="#34D399"/>
+            <rect x="0" y="4" width="36" height="2" fill="#34D399"/>
+            <rect x="0" y="8" width="36" height="2" fill="#34D399"/>
+          </g>
+        </g>
+
+        <g>
+          <rect x="70" y="80" width="20" height="15" rx="2" fill="#065F46"/>
+          <path d="M75,82 Q75,85 77,85 L83,85 Q85,85 85,82 L85,80 Q85,77 81,77 L79,77 Q75,77 75,80 Z"
+                fill="#34D399"/>
+        </g>
+
+        <g transform="translate(10, 110)">
+          <rect x="0" y="0" width="15" height="20" fill="#34D399"/>
+          <rect x="3" y="3" width="9" height="5" fill="#064E3B"/>
+          <path d="M20,10 L25,10 L24,15 L21,15 Z" fill="#2DD4BF"/>
+          <path d="M21,8 L24,8 L24,10 L21,10 Z" fill="#34D399"/>
+          <path d="M22,5 Q23,3 22,1" stroke="#2DD4BF" stroke-width="0.5" fill="none">
+            <animate attributeName="d"
+                     values="M22,5 Q23,3 22,1;M22,5 Q21,3 22,1;M22,5 Q23,3 22,1"
+                     dur="3s"
+                     repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <g>
+          <rect x="65" y="110" width="15" height="20" fill="#34D399"/>
+          <g transform="translate(67, 113)">
+            <rect x="0" y="0" width="11" height="1" fill="#ECFDF5"/>
+            <rect x="0" y="3" width="11" height="1" fill="#ECFDF5"/>
+            <rect x="0" y="6" width="8" height="1" fill="#ECFDF5"/>
+          </g>
+
+          <path d="M85,110 C85,110 90,115 90,120" stroke="#34D399" stroke-width="2" fill="none"/>
+          <path d="M90,120 C85,120 85,125 90,125" fill="#34D399"/>
+        </g>
+
+        <g transform="translate(55, 110)">
+          <path d="M0,15 C0,15 3,0 8,0 C13,0 16,15 16,15 Z" fill="#34D399"/>
+          <path d="M8,0 C8,0 5,-8 2,-10 M8,0 C8,0 8,-10 8,-12 M8,0 C8,0 11,-8 14,-10"
+                stroke="#2DD4BF"
+                stroke-width="1"
+                fill="none">
+            <animate attributeName="d"
+                     values="M8,0 C8,0 5,-8 2,-10 M8,0 C8,0 8,-10 8,-12 M8,0 C8,0 11,-8 14,-10;
+                            M8,0 C8,0 4,-8 1,-10 M8,0 C8,0 8,-10 8,-12 M8,0 C8,0 12,-8 15,-10;
+                            M8,0 C8,0 5,-8 2,-10 M8,0 C8,0 8,-10 8,-12 M8,0 C8,0 11,-8 14,-10"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <g transform="translate(10, 150)">
+          <text font-size="5" fill="#2DD4BF">
+            <tspan x="0">Git Commits: </tspan>
+            <tspan fill="#34D399">12 today</tspan>
+          </text>
+          <text font-size="5" fill="#2DD4BF">
+            <tspan x="0" dy="8">Tasks Done: </tspan>
+            <tspan fill="#34D399">8/10</tspan>
+          </text>
+        </g>
+
+        <text x="50" y="170" font-size="7" fill="#2DD4BF" text-anchor="middle"
+              font-family="'SF Pro Display', 'Segoe UI', system-ui" font-weight="500">
+          Productive Space
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(120, 0)">
+    <text font-family="'SF Pro Display', 'Segoe UI'" font-size="16" font-weight="600" fill="#2DD4BF" x="0" y="25">
+      {{title}}
+    </text>
+
+    <g transform="translate(0, 40)" font-family="'SF Pro Display', 'Segoe UI'" font-size="12" fill="#ECFDF5">
+      <g>
+        {{#cpu}}
+        <text x="0" y="15">💻 CPU:
+          <tspan fill="#2DD4BF">{{cpu}}</tspan>
+        </text>
+        {{/cpu}}
+        {{#gpu}}
+        <text x="0" y="40">🎮 GPU:
+          <tspan fill="#2DD4BF">{{gpu}}</tspan>
+        </text>
+        {{/gpu}}
+        {{#ram}}
+        <text x="0" y="65">💾 RAM:
+          <tspan fill="#2DD4BF">{{ram}}</tspan>
+        </text>
+        {{/ram}}
+        {{#storage}}
+        <text x="0" y="90">💽 SSD:
+          <tspan fill="#2DD4BF">{{storage}}</tspan>
+        </text>
+        {{/storage}}
+      </g>
+
+      <g transform="translate(240,0)">
+        {{#motherboard}}
+        <text x="0" y="15">📟 MB:
+          <tspan fill="#2DD4BF">{{motherboard}}</tspan>
+        </text>
+        {{/motherboard}}
+        {{#psu}}
+        <text x="0" y="40">⚡ PSU:
+          <tspan fill="#2DD4BF">{{psu}}</tspan>
+        </text>
+        {{/psu}}
+        {{#setupCase}}
+        <text x="0" y="65">🖥️ Case:
+          <tspan fill="#2DD4BF">{{setupCase}}</tspan>
+        </text>
+        {{/setupCase}}
+        {{#monitor}}
+        <text x="0" y="90">🖥️ Monitor:
+          <tspan fill="#2DD4BF">{{monitor}}</tspan>
+        </text>
+        {{/monitor}}
+      </g>
+    </g>
+
+    {{#hasCategories}}
+    <g transform="translate(0, 145)">
+      {{#categories}}
+      <rect x="{{xOffset}}" y="0" width="{{width}}" height="22" rx="6" fill="#065F46"
+            stroke="#2DD4BF" stroke-width="1" stroke-opacity="0.3"/>
+      <text font-family="'SF Pro Display', 'Segoe UI', system-ui" font-size="10"
+            font-weight="500" fill="#2DD4BF" x="{{xOffset}}" dx="3" dy="15"
+            letter-spacing="0.3px">
+        {{name}}
+      </text>
+      {{/categories}}
+    </g>
+    {{/hasCategories}}
+
+    <line x1="0" y1="175" x2="{{svgWidth}}" y2="175" stroke="#2DD4BF" stroke-width="1"/>
+
+    <text font-family="'SF Pro Display', 'Segoe UI'" font-size="10" fill="#2DD4BF" y="190" x="0">
+      <tspan font-weight="bold">setupshowroom.com</tspan>
+    </text>
+
+    <text font-family="'SF Pro Display', 'Segoe UI'" font-size="10" fill="#2DD4BF" y="190" x="75%" text-anchor="end">
+      <tspan font-weight="bold"
+             text-decoration-thickness="2px"
+             text-decoration-color="#2DD4BF"
+             text-decoration-style="solid">Setup Owner:
+        <tspan text-decoration="underline"
+               text-decoration-thickness="2px"
+               text-decoration-color="#2DD4BF"
+               text-decoration-style="solid">
+          {{setupOwner}}
+        </tspan>
+      </tspan>
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@plugin "daisyui";
+
+
+#toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  max-width: 350px;
+}
+
+.alert {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Custom Theme */
+:root {
+  --primary: #0077B5;
+  --secondary: #2C2C2C;
+  --accent: #0A66C2;
+}
+
+/* Base Styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom Components */
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/80 text-white;
+  }
+
+  .card {
+    @apply rounded-lg shadow-lg;
+  }
+
+  .form-control {
+    @apply space-y-2;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+
+  .input-error {
+    @apply border-error focus:ring-error;
+  }
+}
+
+/* Transitions */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}

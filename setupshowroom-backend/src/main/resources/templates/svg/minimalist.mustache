@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="{{svgWidth}}" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="minimalist-bg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0F1729"/>
+      <stop offset="100%" style="stop-color:#1E293B"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="{{svgWidth}}" height="200" rx="8" fill="url(#minimalist-bg)"/>
+
+  <g>
+    <rect x="0" y="0" width="110" height="200" fill="#0F1729" rx="4"/>
+
+    <g transform="translate(10, 20)">
+      <g font-family="monospace" font-size="10">
+
+        <rect x="5" y="75" width="80" height="3" fill="#94A3B8" rx="1">
+          <animate attributeName="opacity"
+                   values="0;1"
+                   dur="1s"/>
+        </rect>
+
+        <rect x="10" y="25" width="70" height="30" rx="2" fill="#1E293B" stroke="#94A3B8" stroke-width="1">
+          <animate attributeName="opacity"
+                   values="0;1"
+                   dur="1s"
+                   begin="0.5s"/>
+        </rect>
+
+        <path d="M42,55 L48,55 L45,75 L45,75" fill="#94A3B8">
+          <animate attributeName="opacity"
+                   values="0;1"
+                   dur="1s"
+                   begin="0.7s"/>
+        </path>
+
+        <rect x="25" y="60" width="40" height="10" rx="2" fill="#1E293B">
+          <animate attributeName="opacity"
+                   values="0;1"
+                   dur="1s"
+                   begin="1s"/>
+        </rect>
+
+        <g transform="translate(15, 30)">
+          <rect x="5" y="5" width="25" height="1" fill="#94A3B8" opacity="0.8">
+            <animate attributeName="width"
+                     values="0;25"
+                     dur="1s"
+                     begin="1.5s"/>
+          </rect>
+          <rect x="5" y="8" width="35" height="1" fill="#94A3B8" opacity="0.6">
+            <animate attributeName="width"
+                     values="0;35"
+                     dur="1s"
+                     begin="1.7s"/>
+          </rect>
+          <rect x="5" y="11" width="30" height="1" fill="#94A3B8" opacity="0.4">
+            <animate attributeName="width"
+                     values="0;30"
+                     dur="1s"
+                     begin="1.9s"/>
+          </rect>
+
+          <rect x="5" y="15" width="2" height="2" fill="#E2E8F0">
+            <animate attributeName="opacity"
+                     values="1;0;1"
+                     dur="1.5s"
+                     repeatCount="indefinite"/>
+          </rect>
+        </g>
+
+        <path d="M70,60 Q70,65 73,65 L77,65 Q80,65 80,60 L80,55 Q80,50 75,50 L75,50 Q70,50 70,55 Z"
+              fill="#1E293B">
+          <animate attributeName="opacity"
+                   values="0;1"
+                   dur="1s"
+                   begin="1.2s"/>
+        </path>
+
+        <ellipse cx="15" cy="76" rx="8" ry="1" fill="#1E293B" opacity="0.5"/>
+
+        <g transform="translate(8, 45)">
+          <path d="M7,30 C7,25 7,20 7,15"
+                stroke="#94A3B8"
+                stroke-width="1"
+                fill="none">
+            <animate attributeName="d"
+                     values="M7,30 C7,25 7,20 7,15;M7,30 C8,25 6,20 7,15;M7,30 C7,25 7,20 7,15"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+          </path>
+          <path d="M7,20 C12,20 12,15 7,15"
+                stroke="#94A3B8"
+                stroke-width="1"
+                fill="none">
+            <animate attributeName="d"
+                     values="M7,20 C12,20 12,15 7,15;M7,20 C13,20 13,15 7,15;M7,20 C12,20 12,15 7,15"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+          </path>
+          <path d="M7,25 C2,25 2,20 7,20"
+                stroke="#94A3B8"
+                stroke-width="1"
+                fill="none">
+            <animate attributeName="d"
+                     values="M7,25 C2,25 2,20 7,20;M7,25 C1,25 1,20 7,20;M7,25 C2,25 2,20 7,20"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <rect x="10" y="25" width="70" height="30" rx="2" fill="url(#ambientGlow)" opacity="0.1">
+          <animate attributeName="opacity"
+                   values="0.1;0.15;0.1"
+                   dur="5s"
+                   repeatCount="indefinite"/>
+        </rect>
+
+        <text x="15" y="95" font-size="6" fill="#94A3B8">
+          <tspan x="5">simplicity is the</tspan>
+          <tspan x="5" dy="7">ultimate sophistication</tspan>
+        </text>
+      </g>
+    </g>
+
+    <defs>
+      <radialGradient id="ambientGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#E2E8F0" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#E2E8F0" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+  </g>
+
+  <g transform="translate(120, 0)">
+    <text font-family="'Segoe UI'" font-size="16" font-weight="600" fill="#94A3B8" x="0" y="25">
+      {{title}}
+    </text>
+
+    <g transform="translate(0, 40)" font-family="'Segoe UI'" font-size="12" fill="#E2E8F0">
+      <g>
+        {{#cpu}}
+        <text x="0" y="15" fill="#94A3B8">💻 IDE:
+          <tspan fill="#E2E8F0">{{cpu}}</tspan>
+        </text>
+        {{/cpu}}
+        {{#gpu}}
+        <text x="0" y="40" fill="#94A3B8">🎮 GPU:
+          <tspan fill="#E2E8F0">{{gpu}}</tspan>
+        </text>
+        {{/gpu}}
+        {{#ram}}
+        <text x="0" y="65" fill="#94A3B8">💾 RAM:
+          <tspan fill="#E2E8F0">{{ram}}</tspan>
+        </text>
+        {{/ram}}
+        {{#storage}}
+        <text x="0" y="90" fill="#94A3B8">💽 SSD:
+          <tspan fill="#E2E8F0">{{storage}}</tspan>
+        </text>
+        {{/storage}}
+      </g>
+
+      <g transform="translate(240,0)">
+        {{#motherboard}}
+        <text x="0" y="15" fill="#94A3B8">📟 MB:
+          <tspan fill="#E2E8F0">{{motherboard}}</tspan>
+        </text>
+        {{/motherboard}}
+        {{#psu}}
+        <text x="0" y="40" fill="#94A3B8">⚡ PSU:
+          <tspan fill="#E2E8F0">{{psu}}</tspan>
+        </text>
+        {{/psu}}
+        {{#setupCase}}
+        <text x="0" y="65" fill="#94A3B8">🖥️ Case:
+          <tspan fill="#E2E8F0">{{setupCase}}</tspan>
+        </text>
+        {{/setupCase}}
+        {{#monitor}}
+        <text x="0" y="90" fill="#94A3B8">🖥️ Monitor:
+          <tspan fill="#E2E8F0">{{monitor}}</tspan>
+        </text>
+        {{/monitor}}
+      </g>
+    </g>
+
+    {{#hasCategories}}
+    <g transform="translate(0, 145)">
+      {{#categories}}
+      <rect x="{{xOffset}}" y="0" width="{{width}}" height="18" rx="4" fill="#1E293B"/>
+      <text font-family="'Segoe UI'" font-size="10" fill="#94A3B8" x="{{xOffset}}" dx="5" dy="13">
+        {{name}}
+      </text>
+      {{/categories}}
+    </g>
+    {{/hasCategories}}
+
+    <line x1="0" y1="175" x2="{{svgWidth}}" y2="175" stroke="#94A3B8" stroke-width="1"/>
+
+    <text font-family="'Segoe UI'" font-size="10" fill="#94A3B8" y="190" x="0">
+      <tspan font-weight="bold">setupshowroom.com</tspan>
+    </text>
+
+    <text font-family="'Segoe UI'" font-size="10" fill="#94A3B8" y="190" x="75%" text-anchor="end">
+      <tspan font-weight="bold"
+             text-decoration-thickness="2px"
+             text-decoration-color="#94A3B8"
+             text-decoration-style="solid">Setup Owner:
+        <tspan text-decoration="underline"
+               text-decoration-thickness="2px"
+               text-decoration-color="#94A3B8"
+               text-decoration-style="solid">
+          {{setupOwner}}
+        </tspan>
+      </tspan>
+    </text>
+  </g>
+</svg>

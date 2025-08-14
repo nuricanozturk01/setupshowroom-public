@@ -1,0 +1,148 @@
+@import 'plyr/dist/plyr.css';
+
+:host {
+  .video-container {
+    position: relative;
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+
+      &:hover + .play-overlay {
+        opacity: 1;
+      }
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+
+      .play-button {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background-color: var(--primary-color, #570df8);
+        opacity: 0.8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          color: white;
+          font-size: 24px;
+        }
+      }
+    }
+  }
+
+  // Plyr customizations
+  .plyr {
+    height: 100%;
+
+    .plyr__control--overlaid {
+    }
+  }
+}
+
+:host ::ng-deep {
+  vg-player {
+    @apply w-full h-full;
+
+    .vg-controls {
+      @apply bg-gradient-to-t from-black/70 to-transparent;
+
+      .vg-time-display {
+        @apply px-2 text-sm;
+      }
+
+      .vg-scrub-bar {
+        @apply h-2;
+      }
+
+      .vg-volume {
+        @apply w-24;
+      }
+
+      .vg-control-bar {
+        @apply bg-transparent;
+      }
+    }
+  }
+}
+
+:host {
+  .plyr {
+    --plyr-video-background: transparent;
+
+    &.plyr--video {
+      @apply h-full;
+    }
+
+    .plyr__control--overlaid {
+      @apply bg-primary/80 hover:bg-primary;
+    }
+
+    .plyr__control {
+      &:hover {
+        @apply bg-primary/20;
+      }
+
+      &[aria-expanded=true] {
+        @apply bg-primary text-primary-content;
+      }
+    }
+
+    .plyr__progress__buffer {
+      @apply bg-base-content/20;
+    }
+
+    .plyr__tooltip {
+      @apply bg-base-300 text-base-content;
+
+      &::before {
+        @apply border-base-300;
+      }
+    }
+  }
+}
+
+.animate-scale-fade {
+  animation: scale-fade 1.5s ease-in-out forwards;
+}
+
+@keyframes scale-fade {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  15% {
+    transform: scale(1.2);
+    opacity: 0.9;
+  }
+  30% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+}
+
+// ... existing styles ...

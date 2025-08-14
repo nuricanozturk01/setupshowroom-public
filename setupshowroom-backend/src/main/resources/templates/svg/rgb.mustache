@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="{{svgWidth}}" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rgb-bg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0F0F0F"/>
+      <stop offset="100%" style="stop-color:#1A1A1A"/>
+    </linearGradient>
+
+    <linearGradient id="rgb-wave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF0000">
+        <animate attributeName="stop-color"
+                 values="#FF0000;#00FF00;#0000FF;#FF0000"
+                 dur="3s"
+                 repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#00FF00">
+        <animate attributeName="stop-color"
+                 values="#00FF00;#0000FF;#FF0000;#00FF00"
+                 dur="3s"
+                 repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+  </defs>
+
+  <rect width="{{svgWidth}}" height="200" rx="8" fill="url(#rgb-bg)"/>
+
+  <g>
+    <rect x="0" y="0" width="110" height="200" fill="#0F0F0F" rx="4"/>
+
+    <g transform="translate(5, 20)">
+      <g font-family="monospace" font-size="10">
+        <rect x="0" y="80" width="90" height="3" fill="#1A1A1A"/>
+
+        <g>
+          <rect x="5" y="20" width="60" height="35" rx="2" fill="#1A1A1A"/>
+          <rect x="7" y="22" width="56" height="31" rx="1" fill="#0F0F0F"/>
+          <rect x="5" y="20" width="60" height="35" rx="2" fill="none" stroke-width="1.5">
+            <animate attributeName="stroke"
+                     values="#FF0000;#00FF00;#0000FF;#FF0000"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+          </rect>
+          <path d="M30,55 L40,55 L35,80 Z" fill="#1A1A1A"/>
+        </g>
+
+        <g>
+          <rect x="70" y="20" width="25" height="45" rx="2" fill="#1A1A1A"/>
+          <rect x="72" y="22" width="21" height="41" rx="1" fill="#0F0F0F" opacity="0.7"/>
+
+          <circle cx="82.5" cy="30" r="6" fill="none" stroke-width="1.5">
+            <animate attributeName="stroke"
+                     values="#FF0000;#00FF00;#0000FF;#FF0000"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+            <animateTransform attributeName="transform"
+                              type="rotate"
+                              from="0 82.5 30"
+                              to="360 82.5 30"
+                              dur="2s"
+                              repeatCount="indefinite"/>
+          </circle>
+
+          <circle cx="82.5" cy="45" r="6" fill="none" stroke-width="1.5">
+            <animate attributeName="stroke"
+                     values="#00FF00;#0000FF;#FF0000;#00FF00"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+            <animateTransform attributeName="transform"
+                              type="rotate"
+                              from="0 82.5 45"
+                              to="360 82.5 45"
+                              dur="2s"
+                              repeatCount="indefinite"/>
+          </circle>
+        </g>
+
+        <g>
+          <rect x="15" y="60" width="40" height="15" rx="2" fill="#1A1A1A"/>
+          <rect x="15" y="60" width="40" height="15" rx="2" fill="none" stroke-width="1">
+            <animate attributeName="stroke"
+                     values="#FF0000;#00FF00;#0000FF;#FF0000"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+          </rect>
+        </g>
+
+        <g>
+          <path d="M65,60 Q65,70 70,70 L75,70 Q80,70 80,60 L80,55 Q80,50 72.5,50 L72.5,50 Q65,50 65,55 Z"
+                fill="#1A1A1A"/>
+          <path d="M65,55 Q65,50 72.5,50 L72.5,50 Q80,50 80,55"
+                fill="none"
+                stroke-width="1">
+            <animate attributeName="stroke"
+                     values="#FF0000;#00FF00;#0000FF;#FF0000"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <g>
+          <text x="15" y="35" font-size="4" fill="#FFFFFF">FPS:
+            <tspan fill="#00FF00">165</tspan>
+          </text>
+          <text x="15" y="42" font-size="4" fill="#FFFFFF">PING:
+            <tspan fill="#00FFFF">12ms</tspan>
+          </text>
+        </g>
+
+        <rect x="10" y="55" width="50" height="25" rx="2" fill="#1A1A1A" opacity="0.5"/>
+        <rect x="10" y="55" width="50" height="25" rx="2" fill="none" stroke-width="1">
+          <animate attributeName="stroke"
+                   values="#FF0000;#00FF00;#0000FF;#FF0000"
+                   dur="4s"
+                   repeatCount="indefinite"/>
+        </rect>
+
+        <g>
+          <text x="40" y="95" font-size="7" fill="#FFFFFF" text-anchor="middle"
+                font-family="'SF Pro Display', 'Segoe UI', system-ui" font-weight="600"
+                letter-spacing="0.5px">
+            RGB MASTER
+            <animate attributeName="fill"
+                     values="#FF0000;#00FF00;#0000FF;#FF0000"
+                     dur="4s"
+                     repeatCount="indefinite"/>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(120, 0)">
+    <text font-family="'SF Pro Display', 'Segoe UI'" font-size="16" font-weight="600" fill="#00FFFF" x="0" y="25">
+      {{title}}
+    </text>
+
+    <g transform="translate(0, 40)" font-family="'SF Pro Display', 'Segoe UI'" font-size="12" fill="#FFFFFF">
+      <g>
+        {{#cpu}}
+        <text x="0" y="15">💻 CPU:
+          <tspan fill="#00FFFF">{{cpu}}</tspan>
+        </text>
+        {{/cpu}}
+        {{#gpu}}
+        <text x="0" y="40">🎮 GPU:
+          <tspan fill="#00FFFF">{{gpu}}</tspan>
+        </text>
+        {{/gpu}}
+        {{#ram}}
+        <text x="0" y="65">💾 RAM:
+          <tspan fill="#00FFFF">{{ram}}</tspan>
+        </text>
+        {{/ram}}
+        {{#storage}}
+        <text x="0" y="90">💽 SSD:
+          <tspan fill="#00FFFF">{{storage}}</tspan>
+        </text>
+        {{/storage}}
+      </g>
+
+      <g transform="translate(240,0)">
+        {{#motherboard}}
+        <text x="0" y="15">📟 MB:
+          <tspan fill="#00FFFF">{{motherboard}}</tspan>
+        </text>
+        {{/motherboard}}
+        {{#psu}}
+        <text x="0" y="40">⚡ PSU:
+          <tspan fill="#00FFFF">{{psu}}</tspan>
+        </text>
+        {{/psu}}
+        {{#setupCase}}
+        <text x="0" y="65">🖥️ Case:
+          <tspan fill="#00FFFF">{{setupCase}}</tspan>
+        </text>
+        {{/setupCase}}
+        {{#monitor}}
+        <text x="0" y="90">🖥️ Monitor:
+          <tspan fill="#00FFFF">{{monitor}}</tspan>
+        </text>
+        {{/monitor}}
+      </g>
+    </g>
+
+    {{#hasCategories}}
+    <g transform="translate(0, 145)">
+      {{#categories}}
+      <rect x="{{xOffset}}" y="0" width="{{width}}" height="22" rx="6" fill="#1A1A1A"
+            stroke="#00FFFF" stroke-width="1" stroke-opacity="0.3"/>
+      <text font-family="'SF Pro Display', 'Segoe UI', system-ui" font-size="10"
+            font-weight="500" fill="#00FFFF" x="{{xOffset}}" dx="3" dy="15"
+            letter-spacing="0.3px">
+        {{name}}
+      </text>
+      {{/categories}}
+    </g>
+    {{/hasCategories}}
+
+    <line x1="0" y1="175" x2="{{svgWidth}}" y2="175" stroke="#00FFFF" stroke-width="1"/>
+
+    <text font-family="'SF Pro Display', 'Segoe UI'" font-size="10" fill="#00FFFF" y="190" x="0">
+      <tspan font-weight="bold">setupshowroom.com</tspan>
+    </text>
+
+    <text font-family="'SF Pro Display', 'Segoe UI'" font-size="10" fill="#00FFFF" y="190" x="75%" text-anchor="end">
+      <tspan font-weight="bold"
+             text-decoration-thickness="2px"
+             text-decoration-color="#00FFFF"
+             text-decoration-style="solid">Setup Owner:
+        <tspan text-decoration="underline"
+               text-decoration-thickness="2px"
+               text-decoration-color="#00FFFF"
+               text-decoration-style="solid">
+          {{setupOwner}}
+        </tspan>
+      </tspan>
+    </text>
+  </g>
+</svg>

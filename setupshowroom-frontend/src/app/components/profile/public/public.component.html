@@ -1,0 +1,523 @@
+<div class="container mx-auto p-4 sm:p-6 space-y-6 sm:space-y-8">
+  @if (loading) {
+    <div class="flex flex-col items-center justify-center min-h-[50vh] gap-4">
+      <span class="loading loading-spinner loading-lg text-primary"></span>
+      <p class="text-base-content/60">Loading profile...</p>
+    </div>
+  } @else if (!profileInfo) {
+    <div class="text-center py-12">
+      <div class="w-20 h-20 bg-base-200 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-user-slash text-3xl text-base-content/30"></i>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold">Profile not found</h2>
+      <p class="text-base-content/60 mt-2 max-w-md mx-auto">The user profile you're looking for doesn't exist or has been removed.</p>
+    </div>
+  } @else {
+    <!-- Hero Section -->
+    <div class="card bg-base-200 border border-base-300 overflow-hidden hover:shadow-lg transition-all duration-300">
+      <div class="card-body p-0">
+        <div class="relative">
+          <!-- Banner Background -->
+          <div class="h-40 sm:h-48 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
+
+          <div class="p-4 sm:p-6">
+            <div class="flex flex-col md:flex-row gap-6 items-center md:items-start">
+              <!-- Avatar -->
+              <div class="avatar -mt-16 md:-mt-20">
+                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-4 hover:ring-offset-8 transition-all duration-300">
+                  <img [src]="gravatarUrl(profileInfo.email || '')" alt="User Image" class="object-cover"/>
+                </div>
+              </div>
+
+              <!-- User Info -->
+              <div class="flex-1 text-center md:text-left space-y-3">
+                <div>
+                  <h1 class="text-2xl sm:text-3xl font-bold">{{ profileInfo.full_name || profileInfo.username }}</h1>
+                  <p class="text-base-content/70 mt-1">{{ profileInfo.profession || 'Setup Enthusiast' }}</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats stats-horizontal shadow mt-4 bg-base-100">
+                  <div class="stat place-items-center">
+                    <div class="stat-title text-xs sm:text-sm">Setups</div>
+                    <div class="stat-value text-primary text-lg sm:text-xl">{{ setups.length }}</div>
+                  </div>
+                  <div class="stat place-items-center">
+                    <div class="stat-title text-xs sm:text-sm">Products</div>
+                    <div class="stat-value text-secondary text-lg sm:text-xl">{{ profileInfo.product_groups?.length || 0 }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+      <!-- Left Column: System Specs & Setups -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- System Specs -->
+        <div class="card bg-base-200 hover:shadow-lg transition-all duration-300">
+          <div class="card-body p-4 sm:p-6">
+            <div class="collapse collapse-arrow bg-base-100">
+              <input type="checkbox" class="peer" />
+              <div class="collapse-title flex items-center gap-2">
+                <i class="fas fa-microchip text-primary"></i>
+                <h2 class="text-xl font-medium">System Specifications</h2>
+              </div>
+              <div class="collapse-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pt-4">
+                  <!-- CPU -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-microchip text-primary text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">CPU</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.cpu || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- GPU -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-tv text-secondary text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">GPU</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.gpu || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- RAM -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-memory text-accent text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">RAM</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.ram || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Storage -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-success/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-hdd text-success text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">Storage</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.storage || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Motherboard -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-warning/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-server text-warning text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">Motherboard</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.motherboard || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PSU -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-info/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-plug text-info text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">Power Supply</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.psu || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Case -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-error/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-box text-error text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">Case</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.case || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Monitor -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-desktop text-primary text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">Monitor</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.monitor || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Keyboard -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-keyboard text-secondary text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">Keyboard</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.keyboard || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Mouse -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-mouse text-accent text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">Mouse</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.mouse || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Headset -->
+                  <div class="card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body p-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-success/10 rounded-lg flex items-center justify-center">
+                          <i class="fas fa-headphones text-success text-xl"></i>
+                        </div>
+                        <div>
+                          <div class="text-xs opacity-70">Headset</div>
+                          <div class="font-medium">{{ profileInfo.system_info?.headset || 'Not specified' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Other Info -->
+                @if (profileInfo.system_info?.other) {
+                  <div class="mt-6 card bg-base-200 hover:bg-base-300 transition-all duration-300">
+                    <div class="card-body">
+                      <h3 class="text-sm font-medium opacity-70">Additional Information</h3>
+                      <p class="whitespace-pre-line mt-2">{{ profileInfo.system_info?.other }}</p>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Setups Grid -->
+        @defer (when !loading) {
+          <div class="card bg-base-200 hover:shadow-lg transition-all duration-300">
+            <div class="card-body p-4 sm:p-6">
+              <div class="collapse collapse-arrow bg-base-100">
+                <input type="checkbox" class="peer" />
+                <div class="collapse-title flex items-center gap-2">
+                  <i class="fas fa-desktop text-primary"></i>
+                  <h2 class="text-xl font-medium">Setups ({{ setups.length }})</h2>
+                </div>
+                <div class="collapse-content">
+                  @if (loading) {
+                    <div class="flex flex-col items-center justify-center h-[80px] gap-2">
+                      <span class="loading loading-spinner loading-md text-primary"></span>
+                      <p class="text-sm text-base-content/60">Loading setups...</p>
+                    </div>
+                  } @else if (setups.length === 0) {
+                    <div class="text-center py-8">
+                      <div class="w-16 h-16 bg-base-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-desktop text-2xl opacity-30"></i>
+                      </div>
+                      <p class="text-base-content/60">No setups shared yet</p>
+                    </div>
+                  } @else {
+                    <div class="max-h-[800px] overflow-y-auto pr-2 custom-scrollbar">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+                        @for (setup of setups; track setup.id) {
+                          <div class="card bg-base-100 hover:shadow-lg transition-all duration-300 cursor-pointer group"
+                               (click)="openSetupModal(setup)">
+                            <figure class="relative aspect-square">
+                              @if (setup.images.length > 0) {
+                                <img [src]="setup.images[0]" [alt]="setup.title"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                              } @else {
+                                <div class="w-full h-full flex items-center justify-center bg-base-200">
+                                  <i class="fas fa-desktop text-2xl opacity-30"></i>
+                                </div>
+                              }
+                              <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
+                                <p class="text-sm font-medium text-white line-clamp-1">{{ setup.title }}</p>
+                                <div class="flex justify-between items-center text-xs text-white/90 mt-2">
+                                  <div class="flex gap-3">
+                                    <span><i class="fas fa-heart text-red-500"></i> {{ setup.likes }}</span>
+                                    <span><i class="fas fa-comment text-blue-400"></i> {{ setup.comment_size }}</span>
+                                  </div>
+                                  @if (setup.tags.length > 0) {
+                                    <span class="badge badge-sm badge-primary">{{ setup.tags[0] }}</span>
+                                  }
+                                </div>
+                              </div>
+                            </figure>
+                          </div>
+                        }
+                      </div>
+                    </div>
+
+                    @if (loadingMore) {
+                      <div class="flex justify-center py-4">
+                        <span class="loading loading-spinner loading-md text-primary"></span>
+                      </div>
+                    }
+                    @if (isLastPage && setups.length > 0) {
+                      <div class="text-center py-3 text-sm opacity-70">
+                        No more setups
+                      </div>
+                    }
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
+      </div>
+
+      <!-- Right Column: Product Catalogs -->
+      <div class="lg:col-span-2 space-y-6">
+        <div class="card bg-base-200 hover:shadow-lg transition-all duration-300">
+          <div class="card-body p-4 sm:p-6">
+            <div class="collapse collapse-arrow bg-base-100">
+              <input type="checkbox" class="peer" />
+              <div class="collapse-title flex items-center gap-2">
+                <i class="fas fa-heart text-primary"></i>
+                <h2 class="text-xl font-medium">Favorite Products</h2>
+              </div>
+              <div class="collapse-content">
+                @if (profileInfo.product_groups && profileInfo.product_groups.length > 0) {
+                  <div class="space-y-4 pt-4">
+                    @for (group of displayedGroups; track group.id) {
+                      <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+                        <div class="card-body">
+                          <div class="flex justify-between items-center">
+                            <div class="flex-1">
+                              <div class="flex items-center gap-2">
+                                <i class="fas fa-folder text-primary text-xl"></i>
+                                <h4 class="text-lg font-semibold">{{group.name}}</h4>
+                              </div>
+                            </div>
+                            <button (click)="toggleGroup(group.id)" class="btn btn-ghost btn-sm hover:bg-primary/10">
+                              <i class="fas" [ngClass]="expandedGroupId === group.id ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                            </button>
+                          </div>
+
+                          <!-- Products List -->
+                          @if (expandedGroupId === group.id) {
+                            <div class="mt-4">
+                              @if (groupDisplayedProducts[group.id] && groupDisplayedProducts[group.id].length > 0) {
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                  @for (product of groupDisplayedProducts[group.id]; track product.id) {
+                                    <div class="card bg-base-100 hover:bg-base-300 transition-all duration-200">
+                                      <div class="card-body p-4">
+                                        <div class="flex items-center gap-3">
+                                          <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-box text-primary"></i>
+                                          </div>
+                                          <div>
+                                            <h3 class="font-medium">{{product.name}}</h3>
+                                            @if (product.url) {
+                                              <a [href]="product.url" target="_blank"
+                                                 class="text-sm text-primary hover:text-primary-focus transition-colors">
+                                                <i class="fas fa-external-link-alt mr-1"></i> View Product
+                                              </a>
+                                            }
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  }
+                                </div>
+
+                                <!-- Products Pagination -->
+                                @if (groupTotalProductPages[group.id] > 1) {
+                                  <div class="flex justify-center gap-2 mt-4">
+                                    <button (click)="onGroupProductPageChange(group.id, groupCurrentProductPages[group.id] - 1)"
+                                            [disabled]="groupCurrentProductPages[group.id] === 1"
+                                            class="btn btn-ghost btn-sm hover:bg-primary/10">
+                                      <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <div class="flex gap-1">
+                                      @for (page of [].constructor(groupTotalProductPages[group.id]); track page) {
+                                        <button (click)="onGroupProductPageChange(group.id, $index + 1)"
+                                                class="btn btn-sm"
+                                                [class.btn-primary]="groupCurrentProductPages[group.id] === $index + 1"
+                                                [class.btn-ghost]="groupCurrentProductPages[group.id] !== $index + 1">
+                                          {{$index + 1}}
+                                        </button>
+                                      }
+                                    </div>
+                                    <button (click)="onGroupProductPageChange(group.id, groupCurrentProductPages[group.id] + 1)"
+                                            [disabled]="groupCurrentProductPages[group.id] === groupTotalProductPages[group.id]"
+                                            class="btn btn-ghost btn-sm hover:bg-primary/10">
+                                      <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                  </div>
+                                }
+                              } @else {
+                                <div class="text-center py-8">
+                                  <div class="w-16 h-16 bg-base-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-box text-2xl opacity-30"></i>
+                                  </div>
+                                  <p class="text-base-content/60">No products found in this group</p>
+                                </div>
+                              }
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                  <!-- Group Pagination -->
+                  @if (totalPages > 1) {
+                    <div class="flex justify-center gap-2 mt-4">
+                      <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1" class="btn btn-ghost btn-sm hover:bg-primary/10">
+                        <i class="fas fa-chevron-left"></i>
+                      </button>
+                      <div class="flex gap-1">
+                        @for (page of [].constructor(totalPages); track page) {
+                          <button (click)="onPageChange($index + 1)"
+                                  class="btn btn-sm"
+                                  [class.btn-primary]="currentPage === $index + 1"
+                                  [class.btn-ghost]="currentPage !== $index + 1">
+                            {{$index + 1}}
+                          </button>
+                        }
+                      </div>
+                      <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn btn-ghost btn-sm hover:bg-primary/10">
+                        <i class="fas fa-chevron-right"></i>
+                      </button>
+                    </div>
+                  }
+                } @else {
+                  <div class="text-center py-8">
+                    <div class="w-16 h-16 bg-base-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <i class="fas fa-box text-2xl opacity-30"></i>
+                    </div>
+                    <p class="text-base-content/60">No product catalogs yet</p>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Setup Modal -->
+<dialog #setupModal class="modal">
+  <div class="modal-box w-11/12 sm:w-10/12 max-w-4xl h-[90vh] sm:h-auto p-2 sm:p-3 bg-base-200 scrollbar-hide">
+    @if (selectedSetup) {
+      <div class="bg-base-100 rounded-xl shadow-lg h-full">
+        <app-setup-post [setupId]="selectedSetup.id"></app-setup-post>
+      </div>
+    }
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button (click)="closeSetupModal()">close</button>
+  </form>
+</dialog>
+
+<style>
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Smooth scrolling */
+  .scrollbar-hide {
+    scroll-behavior: smooth;
+  }
+
+  /* Hover effects */
+  .hover\:shadow-lg:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .hover\:shadow-2xl:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Transition effects */
+  .transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+</style>

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-backend-tls
+  namespace: monitoring
+spec:
+  secretName: grafana-backend-tls
+  issuerRef:
+    name: grafana-letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+    - "<YOUR_DOMAIN>"

@@ -1,0 +1,24 @@
+CREATE TABLE comment_like
+(
+  id         VARCHAR(26) NOT NULL,
+  user_id    VARCHAR(26),
+  comment_id VARCHAR(26),
+  deleted    BOOLEAN     NOT NULL,
+  created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+  updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+  deleted_at TIMESTAMP WITHOUT TIME ZONE,
+  CONSTRAINT pk_comment_like PRIMARY KEY (id)
+);
+
+ALTER TABLE comment_like
+  ADD CONSTRAINT FK_COMMENT_LIKE_ON_COMMENT FOREIGN KEY (comment_id) REFERENCES comment (id);
+
+ALTER TABLE comment_like
+  ADD CONSTRAINT FK_COMMENT_LIKE_ON_USER FOREIGN KEY (user_id) REFERENCES "user" (id);
+
+ALTER TABLE favorite_product
+ALTER
+COLUMN url TYPE VARCHAR(150) USING (url::VARCHAR(150));
+
+ALTER TABLE favorite_product
+  ALTER COLUMN url SET NOT NULL;

@@ -1,0 +1,921 @@
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-6 sm:space-y-8">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+    <!-- Profile Header -->
+    <div class="card bg-base-200 border border-base-300 lg:col-span-2">
+      <div class="card-body p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-8">
+          <!-- Avatar Section -->
+          <div class="flex flex-col items-center gap-4 w-full sm:w-auto">
+            <div class="avatar">
+              <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 ring ring-accent ring-offset-base-100 ring-offset-2">
+                <img [src]="gravatarUrl(profileForm.email)" alt="User Image" class="w-full h-full object-cover"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <p class="text-xs sm:text-sm text-base-content/60">You can use Gravatar for your profile photo</p>
+              <a href="https://gravatar.com" target="_blank"
+                 class="text-xs text-primary hover:text-primary-focus mt-1 inline-block">
+                <i class="fas fa-external-link-alt mr-1"></i> Visit Gravatar
+              </a>
+            </div>
+          </div>
+          <!-- Personal Details -->
+          <form (ngSubmit)="saveProfile()" class="w-full">
+            <div class="space-y-4 sm:space-y-6 w-full">
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-user text-primary text-lg sm:text-xl"></i>
+                  <h2 class="text-lg sm:text-xl font-bold">Personal Details</h2>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm gap-2 w-full sm:w-auto">
+                  <i class="fas fa-save"></i> Save Changes
+                </button>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full">
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text font-medium">Full Name</span>
+                  </label>
+                  <input [(ngModel)]="profileForm.full_name" name="full_name"
+                         class="input input-bordered bg-base-300 w-full" required/>
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text font-medium">Email</span>
+                  </label>
+                  <input [(ngModel)]="profileForm.email" name="email" type="email"
+                         class="input input-bordered bg-base-300 w-full" required/>
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text font-medium">Username</span>
+                  </label>
+                  <input [(ngModel)]="profileForm.username" name="username"
+                         class="input input-bordered bg-base-300 w-full" required/>
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text font-medium">Profession</span>
+                  </label>
+                  <input [(ngModel)]="profileForm.profession" name="profession"
+                         class="input input-bordered bg-base-300 w-full"/>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Change Password -->
+    <div class="card bg-base-200 border border-base-300">
+      <div class="card-body p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4 sm:mb-6">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-key text-primary text-lg sm:text-xl"></i>
+            <h2 class="text-lg sm:text-xl font-bold">Change Password</h2>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm gap-2 w-full sm:w-auto"
+                  [disabled]="passwordForm.invalid || passwordForm.pristine"
+                  (click)="changePassword()">
+            <i class="fas fa-key"></i> Update
+          </button>
+        </div>
+        <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="space-y-3 sm:space-y-4">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-medium">New Password</span>
+            </label>
+            <div class="relative">
+              <input formControlName="newPassword" type="password"
+                     class="input input-bordered bg-base-300 w-full pr-10"
+                     [ngClass]="{'input-error': passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched}"
+                     placeholder="Enter new password"/>
+              <i class="fas fa-lock absolute right-3 top-1/2 -translate-y-1/2 text-base-content/40"></i>
+            </div>
+            <label class="label"
+                   *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched">
+              <span class="label-text-alt text-error">
+                Password must be at least 6 characters
+              </span>
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-medium">Confirm New Password</span>
+            </label>
+            <div class="relative">
+              <input formControlName="confirmPassword" type="password"
+                     class="input input-bordered bg-base-300 w-full pr-10"
+                     [ngClass]="{'input-error': passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched}"
+                     placeholder="Confirm new password"/>
+              <i class="fas fa-lock absolute right-3 top-1/2 -translate-y-1/2 text-base-content/40"></i>
+            </div>
+            <label class="label"
+                   *ngIf="passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched">
+              <span class="label-text-alt text-error">
+                Passwords do not match
+              </span>
+            </label>
+          </div>
+          <div class="text-xs text-base-content/60">
+            <i class="fas fa-info-circle mr-1"></i>
+            Password must be at least 6 characters long
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Specs -->
+  <div class="card bg-base-200">
+    <div class="card-body p-4">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-microchip text-primary"></i>
+          <h2 class="text-lg sm:text-xl font-medium">System Specifications</h2>
+        </div>
+        <button type="button" class="btn btn-info btn-sm gap-2" (click)="showSetupCards()">
+          <i class="fas fa-th-large"></i>Show Cards
+        </button>
+      </div>
+      <div class="collapse collapse-arrow bg-base-100">
+        <input type="checkbox" class="peer"/>
+        <div class="collapse-title flex items-center gap-2">
+          <i class="fas fa-microchip text-primary"></i>
+          <h2 class="text-lg sm:text-xl font-medium">System Specifications</h2>
+        </div>
+        <div class="collapse-content">
+          <form (ngSubmit)="saveSystemInfo()">
+            <!-- Categories Section -->
+            <div class="space-y-3">
+              <h4 class="text-sm font-medium opacity-70">Categories</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div *ngFor="let category of availableCategories"
+                     class="card bg-base-300 hover:bg-base-300 cursor-pointer transition-all duration-200"
+                     [class.ring-2]="isSelected(category.id)"
+                     [class.ring-primary]="isSelected(category.id)"
+                     (click)="toggleCategory(category.id)">
+                  <div class="card-body p-3 sm:p-4">
+                    <div class="flex items-center gap-3">
+                      <div class="flex-none">
+                        <i [class]="category.icon + ' text-lg sm:text-xl'"
+                           [class.text-primary]="isSelected(category.id)"></i>
+                      </div>
+                      <div class="flex-1">
+                        <h3 class="font-medium text-sm sm:text-base" [class.text-primary]="isSelected(category.id)">
+                          {{ category.name }}
+                        </h3>
+                        <p class="text-xs opacity-70">{{ category.description }}</p>
+                      </div>
+                      <div class="flex-none">
+                        <div class="form-control">
+                          <input type="checkbox"
+                                 class="checkbox checkbox-primary checkbox-sm"
+                                 [checked]="isSelected(category.id)"
+                                 (click)="$event.stopPropagation()"
+                                 (change)="toggleCategory(category.id)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- System Specs Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-4">
+              <!-- CPU -->
+              <div class="card bg-base-200">
+                <div class="card-body p-3 sm:p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-microchip text-primary text-lg sm:text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">CPU</div>
+                      <input type="text" [(ngModel)]="systemSpecs.cpu" name="cpu"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.cpu.length > MAX_CHARACTERS}"
+                             placeholder="e.g. Intel i9-13900K"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.cpu.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.cpu.length < MAX_CHARACTERS">
+                          {{ systemSpecs.cpu.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- GPU -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-tv text-secondary text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">GPU</div>
+                      <input type="text" [(ngModel)]="systemSpecs.gpu" name="gpu"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.gpu.length > MAX_CHARACTERS}"
+                             placeholder="e.g. NVIDIA RTX 4090"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.gpu.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.gpu.length < MAX_CHARACTERS">
+                          {{ systemSpecs.gpu.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RAM -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-memory text-accent text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">RAM</div>
+                      <input type="text" [(ngModel)]="systemSpecs.ram" name="ram"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.ram.length > MAX_CHARACTERS}"
+                             placeholder="e.g. 32GB DDR5 6000MHz"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.ram.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.ram.length < MAX_CHARACTERS">
+                          {{ systemSpecs.ram.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Storage -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-hdd text-success text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">Storage</div>
+                      <input type="text" [(ngModel)]="systemSpecs.storage" name="storage"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.storage.length > MAX_CHARACTERS}"
+                             placeholder="e.g. 2TB NVMe SSD"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.storage.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.storage.length < MAX_CHARACTERS">
+                          {{ systemSpecs.storage.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Motherboard -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-server text-warning text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">Motherboard</div>
+                      <input type="text" [(ngModel)]="systemSpecs.motherboard" name="motherboard"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.motherboard.length > MAX_CHARACTERS}"
+                             placeholder="e.g. ASUS ROG Z790"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.motherboard.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.motherboard.length < MAX_CHARACTERS">
+                          {{ systemSpecs.motherboard.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PSU -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-plug text-info text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">Power Supply</div>
+                      <input type="text" [(ngModel)]="systemSpecs.psu" name="psu"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.psu.length > MAX_CHARACTERS}"
+                             placeholder="e.g. 1000W 80+ Platinum"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.psu.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.psu.length < MAX_CHARACTERS">
+                          {{ systemSpecs.psu.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Case -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-box text-error text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">Case</div>
+                      <input type="text" [(ngModel)]="systemSpecs.case" name="case"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.case.length > MAX_CHARACTERS}"
+                             placeholder="e.g. Lian Li O11"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.case.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.case.length < MAX_CHARACTERS">
+                          {{ systemSpecs.case.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Monitor -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-desktop text-primary text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">Monitor</div>
+                      <input type="text" [(ngModel)]="systemSpecs.monitor" name="monitor"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.monitor.length > MAX_CHARACTERS}"
+                             placeholder="e.g. LG 27GP950"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.monitor.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.monitor.length < MAX_CHARACTERS">
+                          {{ systemSpecs.monitor.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Keyboard -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-keyboard text-secondary text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">Keyboard</div>
+                      <input type="text" [(ngModel)]="systemSpecs.keyboard" name="keyboard"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.keyboard.length > MAX_CHARACTERS}"
+                             placeholder="e.g. Keychron Q1"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.keyboard.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.keyboard.length < MAX_CHARACTERS">
+                          {{ systemSpecs.keyboard.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mouse -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-mouse text-accent text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">Mouse</div>
+                      <input type="text" [(ngModel)]="systemSpecs.mouse" name="mouse"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.mouse.length > MAX_CHARACTERS}"
+                             placeholder="e.g. Logitech G Pro X"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.mouse.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.mouse.length < MAX_CHARACTERS">
+                          {{ systemSpecs.mouse.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Headset -->
+              <div class="card bg-base-200">
+                <div class="card-body p-4">
+                  <div class="flex items-center gap-3">
+                    <i class="fas fa-headphones text-success text-xl"></i>
+                    <div class="w-full">
+                      <div class="text-xs opacity-70">Headset</div>
+                      <input type="text" [(ngModel)]="systemSpecs.headset" name="headset"
+                             class="input input-bordered bg-base-300 w-full mt-1"
+                             [maxlength]="MAX_CHARACTERS"
+                             [ngClass]="{'input-error': systemSpecs.headset.length > MAX_CHARACTERS}"
+                             placeholder="e.g. Sony WH-1000XM4"/>
+                      <label class="label">
+                        <span class="label-text-alt text-error" *ngIf="systemSpecs.headset.length >= MAX_CHARACTERS">
+                          Maximum {{ MAX_CHARACTERS }} characters allowed
+                        </span>
+                        <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.headset.length < MAX_CHARACTERS">
+                          {{ systemSpecs.headset.length || 0 }}/{{ MAX_CHARACTERS }}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Images Section -->
+            <div class="form-control mt-6">
+              <label class="label">
+                <span class="label-text">Images (Max 5)</span>
+              </label>
+              <div class="flex flex-col gap-4">
+                <input type="file"
+                       multiple
+                       accept="image/*"
+                       (change)="onImagesSelected($event)"
+                       class="file-input file-input-bordered w-full bg-base-300"
+                       [class.hidden]="existingImageUrls.length > 0 || imagePreviewUrls.length > 0"/>
+
+                <!-- Image Preview Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2" 
+                     *ngIf="existingImageUrls.length > 0 || imagePreviewUrls.length > 0">
+                  <!-- Existing Images -->
+                  <div *ngFor="let url of existingImageUrls; let i = index" 
+                       class="relative aspect-square group">
+                    <img [src]="url" 
+                         class="w-full h-full object-cover rounded-lg border-2 border-base-300"/>
+                    <div class="absolute inset-0 bg-base-300 bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
+                      <button type="button"
+                              (click)="removeExistingImage(i)"
+                              class="btn btn-error btn-sm">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- New Image Previews -->
+                  <div *ngFor="let url of imagePreviewUrls; let i = index" 
+                       class="relative aspect-square group">
+                    <img [src]="url" 
+                         class="w-full h-full object-cover rounded-lg border-2 border-base-300"/>
+                    <div class="absolute inset-0 bg-base-300 bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
+                      <button type="button"
+                              (click)="removeNewImage(i)"
+                              class="btn btn-error btn-sm">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Add More Images Button -->
+                  <div *ngIf="(existingImageUrls.length + imagePreviewUrls.length) < 5" 
+                       class="relative aspect-square border-2 border-dashed border-base-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-primary transition-colors duration-200"
+                       (click)="triggerFileInput()">
+                    <input type="file"
+                           multiple
+                           accept="image/*"
+                           (change)="onImagesSelected($event)"
+                           class="hidden"
+                           #fileInput/>
+                    <div class="text-center">
+                      <i class="fas fa-plus text-2xl text-base-content/60"></i>
+                      <p class="text-sm mt-2 text-base-content/60">Add More</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Other Info -->
+            <div class="mt-6 card bg-base-200">
+              <div class="card-body">
+                <h3 class="text-sm font-medium opacity-70">Additional Information</h3>
+                <textarea [(ngModel)]="systemSpecs.other" name="other"
+                          class="textarea textarea-bordered bg-base-300 w-full mt-2 h-40"
+                          [maxlength]="ADDITIONAL_INFO_MAX_CHARACTERS"
+                          [ngClass]="{'input-error': systemSpecs.other.length > ADDITIONAL_INFO_MAX_CHARACTERS}"
+                          placeholder="Additional peripherals or specifications"></textarea>
+                <label class="label">
+                  <span class="label-text-alt text-error" *ngIf="systemSpecs.other.length >= ADDITIONAL_INFO_MAX_CHARACTERS">
+                    Maximum {{ ADDITIONAL_INFO_MAX_CHARACTERS }} characters allowed
+                  </span>
+                  <span class="label-text-alt text-base-content/70" *ngIf="systemSpecs.other.length < ADDITIONAL_INFO_MAX_CHARACTERS">
+                    {{ systemSpecs.other.length || 0 }}/{{ ADDITIONAL_INFO_MAX_CHARACTERS }}
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-between items-center mt-6">
+              <div class="flex gap-2">
+                <button type="button" class="btn btn-primary gap-2" (click)="createSetupFromSpecs()">
+                  <i class="fas fa-plus-circle"></i>Create Setup
+                </button>
+              </div>
+              <button type="submit" class="btn btn-primary" [disabled]="!systemSpecsForm.valid">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Favorite Products -->
+  <div class="card bg-base-200">
+    <div class="card-body p-4">
+      <div class="collapse collapse-arrow bg-base-100">
+        <input type="checkbox" class="peer"/>
+        <div class="collapse-title flex items-center gap-2">
+          <i class="fas fa-heart text-primary"></i>
+          <h2 class="text-lg sm:text-xl font-medium">Favorite Products</h2>
+        </div>
+        <div class="collapse-content">
+          <!-- Header with gradient -->
+          <div class="bg-gradient-to-r from-primary/10 to-secondary/10 p-4 sm:p-6 rounded-lg mb-4 sm:mb-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h2 class="text-xl sm:text-2xl font-bold">Organize Your Products</h2>
+                <p class="text-base-content/60 mt-1 text-sm sm:text-base">Create groups to organize your favorite products</p>
+              </div>
+              <button class="btn btn-primary btn-sm sm:btn-md gap-2 normal-case w-full sm:w-auto" (click)="startAddingGroup()">
+                <i class="fas fa-plus"></i> New Group
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Groups Section -->
+          <div class="space-y-4">
+            <!-- Add Group Form -->
+            <div *ngIf="isAddingGroup" class="card bg-base-200 shadow-xl">
+              <div class="card-body p-4 sm:p-6">
+                <div class="flex flex-col gap-3 sm:gap-4">
+                  <div class="form-control">
+                    <input type="text" [(ngModel)]="newGroupName" placeholder="Enter group name"
+                           class="input input-bordered flex-1"
+                           [ngClass]="{'input-error': newGroupName.length > 20 || (newGroupName.length > 0 && newGroupName.length < 5)}"
+                           [maxlength]="20"/>
+                    <label class="label">
+                      <span class="label-text-alt text-error" *ngIf="newGroupName.length > 20">
+                        Maximum 20 characters allowed
+                      </span>
+                      <span class="label-text-alt text-error" *ngIf="newGroupName.length > 0 && newGroupName.length < 5">
+                        Minimum 5 characters required
+                      </span>
+                      <span class="label-text-alt text-base-content/70" *ngIf="newGroupName.length <= 20 && (newGroupName.length === 0 || newGroupName.length >= 5)">
+                        {{ newGroupName.length || 0 }}/20
+                      </span>
+                    </label>
+                  </div>
+                  <div class="flex flex-col sm:flex-row gap-2">
+                    <button (click)="createGroup()" 
+                            class="btn btn-primary w-full sm:w-auto"
+                            [disabled]="newGroupName.length < 5 || newGroupName.length > 20">
+                      Create
+                    </button>
+                    <button (click)="isAddingGroup = false" class="btn btn-error w-full sm:w-auto">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Groups List -->
+            <div class="space-y-4">
+              <div *ngFor="let group of displayedGroups" class="card bg-base-200 shadow-xl">
+                <div class="card-body p-4 sm:p-6">
+                  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex-1 w-full">
+                      <div *ngIf="editingGroupId !== group.id" class="flex items-center gap-2">
+                        <i class="fas fa-folder text-primary text-lg sm:text-xl"></i>
+                        <h4 class="text-base sm:text-lg font-semibold">{{ group.name }}</h4>
+                      </div>
+                      <div *ngIf="editingGroupId === group.id" class="flex flex-col sm:flex-row gap-2 w-full">
+                        <div class="form-control flex-1">
+                          <input type="text" [(ngModel)]="editingGroupName" 
+                                 class="input input-bordered"
+                                 [ngClass]="{'input-error': editingGroupName.length > 20 || (editingGroupName.length > 0 && editingGroupName.length < 5)}"
+                                 [maxlength]="20"/>
+                          <label class="label">
+                            <span class="label-text-alt text-error" *ngIf="editingGroupName.length > 20">
+                              Maximum 20 characters allowed
+                            </span>
+                            <span class="label-text-alt text-error" *ngIf="editingGroupName.length > 0 && editingGroupName.length < 5">
+                              Minimum 5 characters required
+                            </span>
+                            <span class="label-text-alt text-base-content/70" *ngIf="editingGroupName.length <= 20 && (editingGroupName.length === 0 || editingGroupName.length >= 5)">
+                              {{ editingGroupName.length || 0 }}/20
+                            </span>
+                          </label>
+                        </div>
+                        <div class="flex gap-2">
+                          <button (click)="updateGroupName(group.id)" 
+                                  class="btn btn-primary btn-sm"
+                                  [disabled]="editingGroupName.length < 5 || editingGroupName.length > 20">
+                            Update
+                          </button>
+                          <button (click)="cancelEditGroup()" class="btn btn-ghost btn-sm">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex gap-2">
+                      <button (click)="startEditGroup(group)" class="btn btn-ghost btn-sm">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button (click)="openDeleteGroupModal(group.id)" class="btn btn-ghost btn-sm text-error">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                      <button (click)="toggleGroup(group.id)" class="btn btn-ghost btn-sm">
+                        <i class="fas"
+                           [ngClass]="expandedGroupId === group.id ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Products List -->
+                  <div *ngIf="expandedGroupId === group.id" class="mt-4 bg-base-300 rounded-lg p-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4 p-2 rounded-lg">
+                      <div class="flex items-center gap-2">
+                        <i class="fas fa-box text-primary"></i>
+                        <h5 class="font-medium">Products</h5>
+                      </div>
+                      <button (click)="startAddProduct(group.id)" class="btn btn-ghost btn-sm w-full sm:w-auto">
+                        <i class="fas fa-plus mr-2"></i>Add Product
+                      </button>
+                    </div>
+
+                    <!-- Add Product Form -->
+                    <div *ngIf="addingProductToGroup === group.id" class="card bg-base-200 mb-4">
+                      <div class="card-body p-4">
+                        <div class="space-y-3">
+                          <div class="form-control">
+                            <input type="text" [(ngModel)]="newProduct.name" placeholder="Product name"
+                                   class="input input-bordered w-full"
+                                   [ngClass]="{'input-error': newProduct.name.length > 20 || (newProduct.name.length > 0 && newProduct.name.length < 5)}"
+                                   [maxlength]="20"/>
+                            <label class="label">
+                              <span class="label-text-alt text-error" *ngIf="newProduct.name.length > 20">
+                                Maximum 20 characters allowed
+                              </span>
+                              <span class="label-text-alt text-error" *ngIf="newProduct.name.length > 0 && newProduct.name.length < 5">
+                                Minimum 5 characters required
+                              </span>
+                              <span class="label-text-alt text-base-content/70" *ngIf="newProduct.name.length <= 20 && (newProduct.name.length === 0 || newProduct.name.length >= 5)">
+                                {{ newProduct.name.length || 0 }}/20
+                              </span>
+                            </label>
+                          </div>
+                          <div class="form-control">
+                            <input type="url" [(ngModel)]="newProduct.url" placeholder="Product URL"
+                                   class="input input-bordered w-full"
+                                   [ngClass]="{'input-error': newProduct.url && !isValidUrl(newProduct.url)}"/>
+                            <label class="label">
+                              <span class="label-text-alt text-error" *ngIf="newProduct.url && !isValidUrl(newProduct.url)">
+                                Please enter a valid URL
+                              </span>
+                            </label>
+                          </div>
+                          <div class="flex flex-col sm:flex-row gap-2">
+                            <button (click)="addProduct(group.id)" 
+                                    class="btn btn-primary w-full sm:w-auto"
+                                    [disabled]="newProduct.name.length < 5 || newProduct.name.length > 20 || !newProduct.url || !isValidUrl(newProduct.url)">
+                              Add
+                            </button>
+                            <button (click)="cancelAddProduct()" class="btn btn-error w-full sm:w-auto">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div *ngFor="let product of displayedProducts[group.id]" class="card bg-base-100">
+                        <div class="card-body p-4">
+                          <div *ngIf="editingProductId !== product.id">
+                            <div class="flex flex-col sm:flex-row justify-between items-start gap-2">
+                              <div class="flex-1 min-w-0">
+                                <h6 class="font-medium break-words">{{ product.name }}</h6>
+                                <a [href]="product.url" target="_blank"
+                                   class="text-sm text-primary hover:underline break-all">{{ product.url }}</a>
+                              </div>
+                              <div class="flex gap-2">
+                                <button (click)="startEditProduct(product)" class="btn btn-ghost btn-sm">
+                                  <i class="fas fa-edit"></i>
+                                </button>
+                                <button (click)="openDeleteProductModal(group.id, product.id)"
+                                        class="btn btn-ghost btn-sm text-error">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="editingProductId === product.id" class="space-y-3">
+                            <div class="form-control">
+                              <input type="text" [(ngModel)]="editingProduct.name" placeholder="Product name"
+                                     class="input input-bordered w-full"
+                                     [ngClass]="{'input-error': editingProduct.name.length > 20 || (editingProduct.name.length > 0 && editingProduct.name.length < 5)}"
+                                     [maxlength]="20"/>
+                              <label class="label">
+                                <span class="label-text-alt text-error" *ngIf="editingProduct.name.length > 20">
+                                  Maximum 20 characters allowed
+                                </span>
+                                <span class="label-text-alt text-error" *ngIf="editingProduct.name.length > 0 && editingProduct.name.length < 5">
+                                  Minimum 5 characters required
+                                </span>
+                                <span class="label-text-alt text-base-content/70" *ngIf="editingProduct.name.length <= 20 && (editingProduct.name.length === 0 || editingProduct.name.length >= 5)">
+                                  {{ editingProduct.name.length || 0 }}/20
+                                </span>
+                              </label>
+                            </div>
+                            <div class="form-control">
+                              <input type="url" [(ngModel)]="editingProduct.url" placeholder="Product URL"
+                                     class="input input-bordered w-full"
+                                     [ngClass]="{'input-error': editingProduct.url && !isValidUrl(editingProduct.url)}"/>
+                              <label class="label">
+                                <span class="label-text-alt text-error" *ngIf="editingProduct.url && !isValidUrl(editingProduct.url)">
+                                  Please enter a valid URL
+                                </span>
+                              </label>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                              <button (click)="updateProduct(group.id, product.id)" 
+                                      class="btn btn-primary w-full sm:w-auto"
+                                      [disabled]="editingProduct.name.length < 5 || editingProduct.name.length > 20 || !editingProduct.url || !isValidUrl(editingProduct.url)">
+                                Update
+                              </button>
+                              <button (click)="cancelEditProduct()" class="btn btn-ghost w-full sm:w-auto">Cancel</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div *ngIf="totalProductPages[group.id] > 1" class="flex justify-center gap-2 mt-4">
+                      <button (click)="onProductPageChange(group.id, currentProductPages[group.id] - 1)"
+                              class="btn btn-sm"
+                              [disabled]="currentProductPages[group.id] <= 1">
+                        <i class="fas fa-chevron-left"></i>
+                      </button>
+                      <div class="join">
+                        <button *ngFor="let page of [].constructor(totalProductPages[group.id]); let i = index"
+                                (click)="onProductPageChange(group.id, i + 1)"
+                                class="join-item btn btn-sm"
+                                [ngClass]="{'btn-primary': currentProductPages[group.id] === i + 1}">
+                          {{i + 1}}
+                        </button>
+                      </div>
+                      <button (click)="onProductPageChange(group.id, currentProductPages[group.id] + 1)"
+                              class="btn btn-sm"
+                              [disabled]="currentProductPages[group.id] >= totalProductPages[group.id]">
+                        <i class="fas fa-chevron-right"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div *ngIf="totalPages > 1" class="flex justify-center gap-2 mt-4">
+              <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+                      class="btn btn-ghost btn-sm">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <div class="flex gap-1">
+                <button *ngFor="let page of [].constructor(totalPages); let i = index"
+                        (click)="onPageChange(i + 1)"
+                        class="btn btn-sm"
+                        [class.btn-primary]="currentPage === i + 1"
+                        [class.btn-ghost]="currentPage !== i + 1">
+                  {{ i + 1 }}
+                </button>
+              </div>
+              <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+                      class="btn btn-ghost btn-sm">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Group Modal -->
+  <dialog #deleteGroupModal class="modal">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Delete Group</h3>
+      <p class="py-4">Are you sure you want to delete this group? This action cannot be undone.</p>
+      <div class="modal-action">
+        <button (click)="closeDeleteGroupModal()" class="btn btn-ghost">Cancel</button>
+        <button (click)="confirmDeleteGroup()" class="btn btn-error">Delete</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Delete Product Modal -->
+  <dialog #deleteProductModal class="modal">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Delete Product</h3>
+      <p class="py-4">Are you sure you want to delete this product? This action cannot be undone.</p>
+      <div class="modal-action">
+        <button (click)="closeDeleteProductModal()" class="btn btn-ghost">Cancel</button>
+        <button (click)="confirmDeleteProduct()" class="btn btn-error">Delete</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Card Images Modal -->
+  <dialog #cardImagesModal class="modal">
+    <div class="modal-box max-w-6xl max-h-[80vh] flex flex-col">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="font-bold text-xl">Setup Card Images</h3>
+        <button (click)="closeCardImagesModal()" class="btn btn-ghost btn-sm">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto pr-2">
+        <div *ngFor="let imgHtml of cardImages"
+             class="card bg-base-200 hover:bg-base-300 transition-all duration-200 cursor-pointer group relative"
+             (click)="copyCardImage(imgHtml)">
+          <div class="card-body p-6">
+            <div class="relative">
+              <img [src]="extractImageUrl(imgHtml)"
+                   alt="Setup Card"
+                   class="w-full h-auto rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105"/>
+              <div
+                class="absolute inset-0 bg-black/50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div class="text-white text-center">
+                  <i class="fas fa-copy text-2xl mb-2"></i>
+                  <p class="text-sm">Click to copy image code</p>
+                </div>
+              </div>
+              <div *ngIf="copiedImages[imgHtml]"
+                   class="absolute top-4 right-4 bg-success text-white p-2 rounded-full shadow-lg animate-fadeIn">
+                <i class="fas fa-check"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+</div>
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.2s ease-out forwards;
+  }
+</style>
+

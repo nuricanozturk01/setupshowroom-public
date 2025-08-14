@@ -1,0 +1,16 @@
+:host {
+    display: block;
+    height: 100vh;
+}
+
+.active {
+    @apply bg-primary text-primary-content;
+}
+
+.menu {
+    &-lg {
+        li > a {
+            @apply py-3;
+        }
+    }
+} 

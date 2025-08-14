@@ -1,0 +1,49 @@
+<div class="bg-base-100 p-4">
+  <div class="max-w-3xl mx-auto space-y-6">
+    <!-- Initial Loading State -->
+    <div *ngIf="loading && posts.length === 0" class="flex justify-center items-center min-h-[200px]">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="alert alert-error">
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>{{ error }}</span>
+    </div>
+
+    <!-- Posts -->
+    <ng-container *ngIf="!loading || posts.length > 0">
+      <app-setup-post
+        *ngFor="let post of posts"
+        [post]="post"
+        class="block mb-6"
+      ></app-setup-post>
+
+      <!-- Load More Spinner -->
+      <div *ngIf="loading && posts.length > 0" class="flex justify-center py-4">
+        <span class="loading loading-spinner loading-md"></span>
+      </div>
+
+      <!-- End of Posts Message -->
+      <div *ngIf="isLastPage && posts.length > 0" class="text-center py-4 text-base-content/60">
+        No more setups to load
+      </div>
+
+      <!-- No Posts -->
+      <div *ngIf="posts.length === 0 && !loading" class="text-center py-8">
+        <div class="flex flex-col items-center justify-center text-center py-20 px-4 sm:px-6 lg:px-8 space-y-4">
+          <h3 class="text-3xl font-bold text-base-content">No Setups Found</h3>
+          <p class="text-base opacity-70 max-w-md">
+            We couldn't find any setups for your search or selected category. Try adjusting your filters or be the first
+            to share one!
+          </p>
+          <a href="/create-post" class="btn btn-primary mt-4">
+            <i class="fa-solid fa-plus mr-2"></i> Share Your Setup
+          </a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,185 @@
+<!-- Main Container -->
+<div class="bg-base-100 min-h-screen">
+  <div class="container mx-auto px-4 py-4 sm:py-8 max-w-4xl">
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
+      <div class="flex items-center gap-3">
+        <h1 class="text-2xl sm:text-3xl font-bold">Notifications</h1>
+        <div class="badge badge-primary badge-lg" *ngIf="hasUnreadNotifications">New</div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
+        <div class="join w-full sm:w-auto">
+          <button class="join-item btn btn-sm sm:btn-md"
+                  [class.btn-active]="!showOnlyUnread"
+                  [class.bg-primary]="!showOnlyUnread"
+                  [class.text-primary-content]="!showOnlyUnread"
+                  (click)="showOnlyUnread = false">
+            All
+          </button>
+          <button class="join-item btn btn-sm sm:btn-md"
+                  [class.btn-active]="showOnlyUnread"
+                  [class.bg-primary]="showOnlyUnread"
+                  [class.text-primary-content]="showOnlyUnread"
+                  (click)="showOnlyUnread = true">
+            Unread
+          </button>
+        </div>
+        <button class="btn btn-primary btn-sm sm:btn-md w-full sm:w-auto"
+                (click)="markAllAsRead()"
+                [disabled]="!hasUnreadNotifications">
+          <i class="fas fa-check-double"></i>
+          <span class="ml-2">Mark all as read</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading && notifications.length === 0"
+         class="flex flex-col items-center justify-center min-h-[50vh] gap-4">
+      <span class="loading loading-spinner loading-lg text-primary"></span>
+      <p class="text-base-content/60">Loading notifications...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && filteredNotifications.length === 0"
+         class="flex flex-col items-center justify-center min-h-[50vh] text-center px-4">
+      <div class="bg-base-200 p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-lg max-w-md w-full">
+        <i class="fas fa-bell-slash text-5xl sm:text-6xl mb-4 text-base-content/30"></i>
+        <h3 class="text-xl sm:text-2xl font-bold mb-3">You're all caught up!</h3>
+        <p class="text-base-content/70 text-sm sm:text-base">
+          No new notifications for now. Stay tuned for updates about your setups and community.
+        </p>
+      </div>
+    </div>
+
+    <!-- Notifications List -->
+    <div *ngIf="!loading && filteredNotifications.length > 0"
+         class="space-y-3 sm:space-y-4 overflow-y-auto scrollbar-hide max-h-[70vh]">
+      <div *ngFor="let notification of filteredNotifications"
+           class="card bg-base-200 transition-all duration-300 overflow-hidden hover:shadow-md"
+           [class.border-l-4]="!notification.read"
+           [class.border-primary]="!notification.read">
+
+        <div class="card-body p-3 sm:p-4">
+          <div class="flex items-start gap-3 sm:gap-4">
+            <!-- Avatar -->
+            <div class="avatar flex-shrink-0" [routerLink]="['/profile', notification.user.id]" style="cursor: pointer;">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img [ngSrc]="gravatarUrl(notification.user.email)"
+                     alt="User avatar"
+                     class="object-cover rounded-full"
+                     fill
+                     priority>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <ng-container *ngIf="isClickable(notification.type); else plainText">
+                    <a [routerLink]="notification.action"
+                       class="text-base sm:text-lg font-medium transition-colors duration-200 hover:text-primary">
+                      {{ notification.user.username }}
+                      <span class="font-normal">{{ notification.description }}</span>
+                    </a>
+                  </ng-container>
+                  <ng-template #plainText>
+                    <p class="text-base sm:text-lg">
+                      <span class="font-medium">{{ notification.user.username }}</span>
+                      <span>{{ notification.description }}</span>
+                    </p>
+                  </ng-template>
+                  <p class="text-xs sm:text-sm text-base-content/60">{{ formatDate(notification.createdAt) }}</p>
+                </div>
+
+                <!-- Mark as Read Button -->
+                <button *ngIf="!notification.read"
+                        class="btn btn-circle btn-sm btn-ghost hover:bg-primary/10"
+                        (click)="markAsRead(notification)"
+                        title="Mark as read">
+                  <i class="fas fa-check text-primary"></i>
+                </button>
+              </div>
+
+              <!-- Setup Link for TAG notifications -->
+              <div *ngIf="notification.type === 'TAG'"
+                   class="mt-3 card bg-base-300 transition-all duration-300 hover:bg-base-300/80 cursor-pointer"
+                   [routerLink]="['/post', notification.id]">
+                <div class="card-body py-2 sm:py-3 px-3 sm:px-4 flex-row items-center gap-2 sm:gap-3">
+                  <i class="fas fa-desktop text-primary text-lg sm:text-xl"></i>
+                  <span class="font-medium text-sm sm:text-base">View Setup Post</span>
+                  <i class="fas fa-chevron-right ml-auto"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading More -->
+    <div *ngIf="loadingMore && notifications.length > 0"
+         class="flex justify-center py-4 sm:py-6">
+      <span class="loading loading-dots loading-md"></span>
+    </div>
+
+    <!-- End of List -->
+    <div *ngIf="isLastPage && notifications.length > 0 && filteredNotifications.length > 0"
+         class="text-center py-4 sm:py-6 text-base-content/60">
+      <div class="divider">No more notifications</div>
+    </div>
+  </div>
+</div>
+
+<!-- Setup Modal -->
+<dialog #setupModal class="modal">
+  <div class="modal-box w-11/12 sm:w-10/12 max-w-4xl h-[90vh] sm:h-auto p-2 sm:p-3 bg-base-200 scrollbar-hide">
+    @if (selectedSetup) {
+      <div class="bg-base-100 rounded-xl shadow-lg h-full">
+        <app-setup-post [setupId]="selectedSetup.id"></app-setup-post>
+      </div>
+    }
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button (click)="closeSetupModal()">close</button>
+  </form>
+</dialog>
+
+<style>
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Smooth scrolling */
+.scrollbar-hide {
+  scroll-behavior: smooth;
+}
+
+/* Responsive text sizes */
+@media (max-width: 640px) {
+  .text-responsive {
+    font-size: 0.875rem;
+  }
+}
+
+/* Hover effects */
+.hover\:shadow-md:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Transition effects */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+</style>
