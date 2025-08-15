@@ -128,9 +128,7 @@ SetupShowroom transforms the way people share and discover workspace setups by p
 
 ## ☕ Support My Work
 
-The setupshowroom app may be discontinued soon in production. Visit the link below for the open-source version.
-
-If you find my projects helpful or want to support my open-source contributions:
+The setupshowroom app may be discontinued soon in production. If you find my projects helpful or want to support my open-source contributions:
 
 <a href="https://www.buymeacoffee.com/canozturk3U" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 200px !important;" >
